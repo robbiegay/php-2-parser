@@ -13,24 +13,43 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Insert into table
-// $sql = "INSERT INTO foodTable (food_name, food_group, food_taste)
-// VALUES ('Apple', 'Fruit', 'Yummy!')";
+$json = json_decode(file_get_contents("./data.json"));
 
-// if ($conn->query($sql) === TRUE) {
-//     $last_id = $conn->insert_id;
-//     echo "New record created successfully. Last inserted ID is: " . $last_id;
-// } else {
-//     echo "Error: " . $sql . "<br>" . $conn->error;
+// foreach ($json as $key => $value) {
+//     // echo $key . " => " . $value->name . "<br>";
+//     // echo $key . " => " . $value->group . "<br>";
+//     // echo $key . " => " . $value->taste . "<br>";
+//     // echo "----------------------------------" . "<br>";
+
+//     // Insert into table
+//     $sql = "INSERT INTO foodTable (food_name, food_group, food_taste) 
+//     VALUES ('$value->name', '$value->group', '$value->taste')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         $last_id = $conn->insert_id;
+//         echo "New record successfully created. Last inserted ID is: " . $last_id . "<br>";
+//     } else {
+//         echo "Error: " . $sql . "<br>" . $conn->error;
+//     }
 // }
 
-// sql to delete a record
-$sql = "DELETE FROM foodTable WHERE id=1";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Record deleted successfully";
-} else {
-    echo "Error deleting record: " . $conn->error;
-}
-
 $conn->close();
+
+// Read method
+function getAllData($num)
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "apiViewer";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    $query = mysql_query("select * from foodTable LIMIT $num", $conn);
+
+    print_r($query);
+    print_r("hello\n\n\n\n\nbye");
+
+    $conn->close();
+}

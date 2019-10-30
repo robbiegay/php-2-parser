@@ -9,7 +9,7 @@ $conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error . PHP_EOL);
 }
 
 // Create Database
@@ -20,17 +20,9 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating database: " . $conn->error;
 }
 
-$conn->close();
-
 $dbname = "apiViewer";
 
-// Create connection with newly created DB
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection (with new DB) failed: " . $conn->connect_error);
-}
+$conn->select_db($dbname);
 
 // sql to create table
 $sql = "CREATE TABLE foodTable (
