@@ -36,8 +36,7 @@ $json = json_decode(file_get_contents("./data.json"));
 $conn->close();
 
 // Read method
-function getAllData($num)
-{
+function getAllData($num) {
     $servername = "localhost";
     $username = "root";
     $password = "root";
@@ -46,10 +45,16 @@ function getAllData($num)
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    $query = mysql_query("select * from foodTable LIMIT $num", $conn);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-    print_r($query);
+    // $query = mysql_query("select * from foodTable LIMIT $num", $conn);
+
+    // print_r($query);
     print_r("hello\n\n\n\n\nbye");
+    echo "test";
 
     $conn->close();
 }
